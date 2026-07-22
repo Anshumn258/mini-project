@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Techno Utsav | Saket College</title>
+  <style>
+    /* Reset & CSS Variables */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --accent: #38bdf8;
+      --accent-glow: #00f0ff;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* Header / Navbar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: rgba(15, 23, 42, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      background: radial-gradient(circle at center, #1e1b4b 0%, var(--bg-dark) 70%);
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      padding: 0.8rem 2rem;
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    /* Countdown Section */
+    .countdown {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .time-box {
+      background: var(--bg-card);
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      min-width: 90px;
+    }
+
+    .time-box span {
+      display: block;
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    /* General Section Styling */
+    .section {
+      padding: 5rem 5%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 3rem auto;
+      font-size: 1.1rem;
+    }
+
+    /* Events Section */
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .event-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .event-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .event-tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      width: fit-content;
+    }
+
+    .event-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* About Section */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .about-card {
+      background: var(--bg-card);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .about-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .about-card h3 {
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .about-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* Registration Modal Pop-up */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      padding: 2.5rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 450px;
+      border: 1px solid var(--accent);
+      position: relative;
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+    }
+
+    .modal-content h2 {
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+
+    .modal-content p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.8rem;
+      background: var(--bg-dark);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      color: var(--text-main);
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .countdown { flex-wrap: wrap; justify-content: center; }
+      nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Header Navigation -->
+  <header>
+    <div class="logo">Techno Utsav</div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 1. Home / Hero Section -->
+  <section class="hero" id="home">
+    <h1>Techno Utsav 2026</h1>
+    <p>Organized by Saket College IT & CS Department. Experience the perfect blend of technology, creativity, and pure fun!</p>
+    
+    <a href="#events" class="btn">Explore Events</a>
+
+    <!-- 100 Days Countdown -->
+    <div class="countdown">
+      <div class="time-box"><span id="days">100</span>Days</div>
+      <div class="time-box"><span id="hours">00</span>Hours</div>
+      <div class="time-box"><span id="mins">00</span>Mins</div>
+      <div class="time-box"><span id="secs">00</span>Secs</div>
+    </div>
+  </section>
+
+  <!-- 2. Events Section -->
+  <section class="section" id="events">
+    <h2 class="section-title">Featured Events</h2>
+    <p class="section-subtitle">Pick your field, show off your skills, and win exciting prizes!</p>
+
+    <div class="event-grid">
+
+      <div class="event-card">
+        <div>
+          <span class="event-tag">Coding</span>
+          <h3>Code Rush</h3>
+          <p>A fast-paced competitive programming challenge testing algorithms and speed.</p>
+        </div>
+        <button class="btn register-trigger" data-event="Code Rush">Register Now</button>
+      </div>
+
+      <div class="event-card">
+        <div>
+          <span class="event-tag">Robotics</span>
+          <h3>Robo Race</h3>
+          <p>Design a custom bot to navigate complex tracks and obstacles in record time.</p>
+        </div>
+        <button class="btn register-trigger" data-event="Robo Race">Register Now</button>
+      </div>
+
+      <div class="event-card">
+        <div>
+          <span class="event-tag">Web Dev</span>
+          <h3>Web Craft</h3>
+          <p>Build a modern, responsive web application from scratch based on a surprise topic.</p>
+        </div>
+        <button class="btn register-trigger" data-event="Web Craft">Register Now</button>
+      </div>
+
+      <div class="event-card">
+        <div>
+          <span class="event-tag">Gaming</span>
+          <h3>LAN Gaming</h3>
+          <p>Battle against top teams in high-stakes Valorant and BGMI tournaments.</p>
+        </div>
+        <button class="btn register-trigger" data-event="LAN Gaming">Register Now</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3. About Section -->
+  <section class="section" id="about">
+    <h2 class="section-title">About Techno Utsav</h2>
+    <p class="section-subtitle">
+      Techno Utsav is the premier inter-collegiate technical fest hosted annually at Saket College, designed to inspire, entertain, and bring out the best technical minds.
+    </p>
+
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>🎓 Saket College Pride</h3>
+        <p>Hosted at Saket College, Techno Utsav brings together students from all across the region to celebrate technology, innovation, and academic excellence in an energetic campus atmosphere.</p>
+      </div>
+
+      <div class="about-card">
+        <h3>💻 Driven by IT & CS Students</h3>
+        <p>Organized passionately by the Information Technology and Computer Science departments, our student committee works tirelessly to craft challenging competitions and memorable experiences.</p>
+      </div>
+
+      <div class="about-card">
+        <h3>🚀 Fun Meets Technology</h3>
+        <p>It's not just about complex code and logic! We combine intense technical hackathons with exciting gaming arenas, fun side-quests, workshops, and entertainment to make tech accessible to everyone.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popup Registration Form -->
+  <div class="modal-overlay" id="registrationModal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeModal">&times;</button>
+      <h2>Event Registration</h2>
+      <p id="selectedEventText">Registering for: Event Name</p>
+
+      <form id="regForm">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" required placeholder="John Doe">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" required placeholder="john@example.com">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <!-- Restricts input to numbers only, max 10 digits -->
+          <input 
+            type="tel" 
+            id="phone" 
+            required 
+            placeholder="9876543210" 
+            pattern="[0-9]{10}" 
+            maxlength="10" 
+            inputmode="numeric"
+            title="Please enter a valid 10-digit mobile number"
+          >
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Submit Registration</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Techno Utsav | Saket College IT & CS Department. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // --- 1. COUNTDOWN TIMER (EXACTLY 100 DAYS) ---
+    const hundredDaysInMs = 100 * 24 * 60 * 60 * 1000;
+    const targetDate = new Date().getTime() + hundredDaysInMs;
+
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        clearInterval(timer);
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("mins").innerText = "00";
+        document.getElementById("secs").innerText = "00";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+      document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+      document.getElementById("mins").innerText = mins < 10 ? "0" + mins : mins;
+      document.getElementById("secs").innerText = secs < 10 ? "0" + secs : secs;
+    }, 1000);
+
+    // --- 2. POPUP REGISTRATION MODAL LOGIC ---
+    const modal = document.getElementById("registrationModal");
+    const closeModal = document.getElementById("closeModal");
+    const triggers = document.querySelectorAll(".register-trigger");
+    const eventText = document.getElementById("selectedEventText");
+    const regForm = document.getElementById("regForm");
+    const phoneInput = document.getElementById("phone");
+
+    // Prevent non-numeric key presses in phone input in real time
+    phoneInput.addEventListener("input", (e) => {
+      e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    });
+
+    triggers.forEach(button => {
+      button.addEventListener("click", () => {
+        const eventName = button.getAttribute("data-event");
+        eventText.innerText = "Registering for: " + eventName;
+        modal.classList.add("active");
+      });
+    });
+
+    closeModal.addEventListener("click", () => {
+      modal.classList.remove("active");
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.remove("active");
+      }
+    });
+
+    regForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Success! Your registration has been submitted.");
+      modal.classList.remove("active");
+      regForm.reset();
+    });
+  </script>
+</body>
+</html>
