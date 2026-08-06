@@ -744,7 +744,7 @@
   </footer>
 
   <script>
-    // --- API BASE URL (CHANGED) ---
+    // --- API BASE URL ---
     const API_BASE_URL = 'https://techno-utsav-backend.onrender.com/api';
 
     // Global variable to store active registration context
@@ -912,7 +912,7 @@
       }
     });
 
-    // --- STEP 1: Submit Form -> Connects to POST /register or /api/register ---
+    // --- STEP 1: Submit Form -> Connects to POST /api/register ---
     regForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -955,7 +955,7 @@
       }
     });
 
-    // --- STEP 2: Confirm Payment -> Connects to POST /confirm-payment ---
+    // --- STEP 2: Confirm Payment -> Connects to POST /api/confirm-payment ---
     confirmPaymentBtn.addEventListener("click", async () => {
       if (!currentRegistrationId) {
         alert("Session invalid or expired. Please re-register.");
