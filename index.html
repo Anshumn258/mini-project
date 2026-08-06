@@ -196,6 +196,13 @@
       color: #fff;
     }
 
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
     /* Countdown Section */
     .countdown {
       display: flex;
@@ -705,7 +712,7 @@
               title="Please enter a valid 10-digit mobile number"
             >
           </div>
-          <button type="submit" class="btn" style="width: 100%;">Proceed to Payment</button>
+          <button type="submit" id="submitRegBtn" class="btn" style="width: 100%;">Proceed to Payment</button>
         </form>
       </div>
 
@@ -714,7 +721,6 @@
         <h2>Scan & Pay</h2>
         <p style="color: var(--text-muted);">Scan the QR code using any UPI App to complete payment:</p>
         
-        <!-- FIXED IMAGE SOURCE URL HERE -->
         <img src="https://cdn.phototourl.com/free/2026-08-06-4b86dab4-90b4-4050-abf3-15e1ce902efb.png" alt="Payment QR Code" class="qr-image">
         
         <button id="confirmPaymentBtn" class="btn" style="width: 100%; margin-top: 1rem;">I Have Made the Payment</button>
@@ -738,6 +744,13 @@
   </footer>
 
   <script>
+    // --- API BASE URL ---
+    const API_BASE_URL = 'http://localhost:5000/api';
+
+    // Global variable to store active registration context
+    let currentRegistrationId = null;
+    let selectedEventName = '';
+
     // --- 1. COUNTDOWN TIMER ---
     const hundredDaysInMs = 100 * 24 * 60 * 60 * 1000;
     const targetDate = new Date().getTime() + hundredDaysInMs;
@@ -826,12 +839,14 @@
     const eventInfoBox = document.getElementById("eventInfoBox");
     
     const regForm = document.getElementById("regForm");
+    const submitRegBtn = document.getElementById("submitRegBtn");
     const confirmPaymentBtn = document.getElementById("confirmPaymentBtn");
     const phoneInput = document.getElementById("phone");
     
     const formContainer = document.getElementById("formContainer");
     const qrView = document.getElementById("qrView");
     const successView = document.getElementById("successView");
+    const successDetails = document.getElementById("successDetails");
     
     const finalCloseBtn = document.getElementById("finalCloseBtn");
 
@@ -843,11 +858,11 @@
     // Open Modal, render event details, and reset to Form step
     triggers.forEach(button => {
       button.addEventListener("click", () => {
-        const currentEvent = button.getAttribute("data-event");
-        eventText.innerText = "Registering for: " + currentEvent;
+        selectedEventName = button.getAttribute("data-event");
+        eventText.innerText = "Registering for: " + selectedEventName;
 
         // Render dynamic details for the clicked event
-        const data = eventDetailsData[currentEvent];
+        const data = eventDetailsData[selectedEventName];
         if (data) {
           eventInfoBox.style.display = "block";
           eventInfoBox.innerHTML = `
@@ -884,6 +899,7 @@
         qrView.classList.remove("active");
         successView.classList.remove("active");
         regForm.reset();
+        currentRegistrationId = null;
       }, 400);
     }
 
@@ -896,17 +912,87 @@
       }
     });
 
-    // STEP 1: Submit Form -> Shows QR Code Payment Screen
-    regForm.addEventListener("submit", (e) => {
+    // --- STEP 1: Submit Form -> Connects to POST /api/register ---
+    regForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      formContainer.style.display = "none";
-      qrView.classList.add("active");
+
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      submitRegBtn.disabled = true;
+      submitRegBtn.innerText = "Processing...";
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            fullName,
+            email,
+            phone,
+            eventName: selectedEventName
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          currentRegistrationId = result.registrationId;
+          formContainer.style.display = "none";
+          qrView.classList.add("active");
+        } else {
+          alert(result.message || "Failed to initiate registration.");
+        }
+      } catch (err) {
+        console.error("API Error:", err);
+        alert("Unable to reach backend server. Make sure Node API is running on Port 5000.");
+      } finally {
+        submitRegBtn.disabled = false;
+        submitRegBtn.innerText = "Proceed to Payment";
+      }
     });
 
-    // STEP 2: Confirm Payment Button -> Shows Success Notification Screen
-    confirmPaymentBtn.addEventListener("click", () => {
-      qrView.classList.remove("active");
-      successView.classList.add("active");
+    // --- STEP 2: Confirm Payment -> Connects to POST /api/confirm-payment ---
+    confirmPaymentBtn.addEventListener("click", async () => {
+      if (!currentRegistrationId) {
+        alert("Session invalid or expired. Please re-register.");
+        return;
+      }
+
+      confirmPaymentBtn.disabled = true;
+      confirmPaymentBtn.innerText = "Verifying Payment...";
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/confirm-payment`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            registrationId: currentRegistrationId,
+            transactionRef: `TXN_LOCAL_${Date.now()}`
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          qrView.classList.remove("active");
+          successDetails.innerText = `Thank you! Your registration for ${selectedEventName} is confirmed. Ref Code: ${result.transactionRef}`;
+          successView.classList.add("active");
+        } else {
+          alert(result.message || "Failed to confirm payment.");
+        }
+      } catch (err) {
+        console.error("API Error:", err);
+        alert("Server error confirming payment. Please try again.");
+      } finally {
+        confirmPaymentBtn.disabled = false;
+        confirmPaymentBtn.innerText = "I Have Made the Payment";
+      }
     });
   </script>
 </body>
