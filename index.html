@@ -388,7 +388,7 @@
       padding: 2.5rem;
       border-radius: 20px;
       width: 90%;
-      max-width: 450px;
+      max-width: 480px;
       max-height: 90vh;
       overflow-y: auto;
       border: 2px solid var(--accent);
@@ -408,8 +408,56 @@
 
     .modal-content p {
       color: var(--text-muted);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       font-size: 0.95rem;
+    }
+
+    /* Dynamic Event Details Box Styling */
+    .event-info-box {
+      background: var(--bg-dark);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+    }
+
+    .event-info-box h4 {
+      color: var(--accent-purple);
+      margin-bottom: 0.4rem;
+      font-size: 1rem;
+    }
+
+    .event-info-box ul {
+      list-style-type: none;
+      padding-left: 0;
+      color: var(--text-main);
+    }
+
+    .event-info-box ul li {
+      margin-bottom: 0.3rem;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-bottom: 0.2rem;
+    }
+
+    .event-info-box ul li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .event-info-box .rules-list {
+      margin-top: 0.5rem;
+      padding-left: 1.2rem;
+      list-style-type: disc;
+      color: var(--text-muted);
+    }
+
+    .event-info-box .rules-list li {
+      border-bottom: none;
+      display: list-item;
+      padding-bottom: 0;
     }
 
     .close-btn {
@@ -457,7 +505,27 @@
       transform: scale(1.01);
     }
 
-    /* STEP 2: SUCCESS VIEW STYLING */
+    /* QR CODE VIEW STYLING (STEP 2) */
+    .qr-container {
+      text-align: center;
+      display: none;
+      animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .qr-container.active {
+      display: block;
+    }
+
+    .qr-image {
+      width: 100%;
+      max-width: 260px;
+      margin: 1rem auto;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+      display: block;
+    }
+
+    /* SUCCESS VIEW STYLING (STEP 3) */
     .success-container {
       text-align: center;
       display: none;
@@ -481,26 +549,6 @@
       font-size: 2.2rem;
       margin: 0 auto 1.2rem auto;
       box-shadow: 0 0 20px var(--accent-glow);
-    }
-
-    /* STEP 3: QR CODE VIEW STYLING */
-    .qr-container {
-      text-align: center;
-      display: none;
-      animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .qr-container.active {
-      display: block;
-    }
-
-    .qr-image {
-      width: 100%;
-      max-width: 280px;
-      margin: 1rem auto;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
-      display: block;
     }
 
     /* Footer */
@@ -619,9 +667,14 @@
     <div class="modal-content">
       <button class="close-btn" id="closeModal">&times;</button>
       
+      <!-- STEP 1: PARTICIPANT DETAILS FORM -->
       <div id="formContainer">
         <h2>Event Registration</h2>
         <p id="selectedEventText">Registering for: Event Name</p>
+
+        <div id="eventInfoBox" class="event-info-box">
+          <!-- Populated via JavaScript -->
+        </div>
 
         <form id="regForm">
           <div class="form-group">
@@ -652,26 +705,28 @@
               title="Please enter a valid 10-digit mobile number"
             >
           </div>
-          <button type="submit" class="btn" style="width: 100%;">Submit Registration</button>
+          <button type="submit" class="btn" style="width: 100%;">Proceed to Payment</button>
         </form>
       </div>
 
-      <div id="successView" class="success-container">
-        <div class="success-icon">✓</div>
-        <h2>Registration Submitted!</h2>
-        <p style="margin-top: 0.8rem; color: var(--text-muted);" id="successDetails">
-          Thank you for registering. We have recorded your response.
-        </p>
-        <button id="doneBtn" class="btn" style="width: 100%; margin-top: 1.5rem;">Done</button>
-      </div>
-
+      <!-- STEP 2: SCAN & PAY QR CODE -->
       <div id="qrView" class="qr-container">
         <h2>Scan & Pay</h2>
-        <p style="color: var(--text-muted);">Please complete your payment via UPI QR Code:</p>
+        <p style="color: var(--text-muted);">Scan the QR code using any UPI App to complete payment:</p>
         
         <img src="file:///C:/Users/acer/OneDrive/Pictures/Screenshots/Screenshot%202026-08-04%20185108.png" alt="Payment QR Code" class="qr-image">
         
-        <button id="finalCloseBtn" class="btn" style="width: 100%; margin-top: 1rem;">Close</button>
+        <button id="confirmPaymentBtn" class="btn" style="width: 100%; margin-top: 1rem;">I Have Made the Payment</button>
+      </div>
+
+      <!-- STEP 3: SUCCESS NOTIFICATION VIEW -->
+      <div id="successView" class="success-container">
+        <div class="success-icon">✓</div>
+        <h2>Registration Successful!</h2>
+        <p style="margin-top: 0.8rem; color: var(--text-muted);" id="successDetails">
+          Thank you for registering for Techno Utsav 2026. Your registration has been confirmed!
+        </p>
+        <button id="finalCloseBtn" class="btn" style="width: 100%; margin-top: 1.5rem;">Done</button>
       </div>
 
     </div>
@@ -710,19 +765,73 @@
       document.getElementById("secs").innerText = secs < 10 ? "0" + secs : secs;
     }, 1000);
 
-    // --- 2. MODAL & SCREEN SWITCH LOGIC ---
+    // --- 2. EVENT DATA STORE ---
+    const eventDetailsData = {
+      "Code Rush": {
+        time: "10:00 AM - 12:30 PM",
+        venue: "Lab 3 (3rd Floor)",
+        type: "Solo Participation",
+        fee: "₹50",
+        prize: "₹1,500 Cash + Trophy",
+        rules: [
+          "Languages allowed: C++, Java, Python, C.",
+          "Duration: 90 minutes for 4 algorithmic problems.",
+          "Internet access or helper tools are strictly prohibited."
+        ]
+      },
+      "Frontend Designing": {
+        time: "01:00 PM - 03:00 PM",
+        venue: "Lab 1 (2nd Floor)",
+        type: "Solo or Pair (Max 2)",
+        fee: "₹80 per team",
+        prize: "₹2,000 Cash + Certificate",
+        rules: [
+          "Topic/Theme will be announced on the spot.",
+          "Allowed technologies: HTML5, CSS3, JS, Bootstrap/Tailwind.",
+          "No pre-made templates or frameworks allowed."
+        ]
+      },
+      "Reverse Coding": {
+        time: "11:30 AM - 01:30 PM",
+        venue: "Lab 2 (2nd Floor)",
+        type: "Solo Participation",
+        fee: "₹50",
+        prize: "₹1,500 Cash + Medal",
+        rules: [
+          "Analyze executables/outputs to guess the algorithm.",
+          "Recreate the exact code in the language of your choice.",
+          "Scoring depends on accuracy and completion speed."
+        ]
+      },
+      "ESports": {
+        time: "02:00 PM Onwards",
+        venue: "Auditorium / Gaming Arena",
+        type: "Squad (Valorant / BGMI)",
+        fee: "₹200 per Squad",
+        prize: "₹4,000 Prize Pool + Trophies",
+        rules: [
+          "Players must bring their own smartphones/peripherals.",
+          "Emulators are strictly prohibited for mobile games.",
+          "Unfair means or hacking leads to immediate disqualify."
+        ]
+      }
+    };
+
+    // --- 3. MODAL & SCREEN SWITCH LOGIC ---
     const modal = document.getElementById("registrationModal");
     const closeModal = document.getElementById("closeModal");
     const triggers = document.querySelectorAll(".register-trigger");
     const eventText = document.getElementById("selectedEventText");
+    const eventInfoBox = document.getElementById("eventInfoBox");
+    
     const regForm = document.getElementById("regForm");
+    const confirmPaymentBtn = document.getElementById("confirmPaymentBtn");
     const phoneInput = document.getElementById("phone");
     
     const formContainer = document.getElementById("formContainer");
-    const successView = document.getElementById("successView");
     const qrView = document.getElementById("qrView");
+    const successView = document.getElementById("successView");
     
-    const doneBtn = document.getElementById("doneBtn");
     const finalCloseBtn = document.getElementById("finalCloseBtn");
 
     // Sanitize non-numeric phone input
@@ -730,28 +839,49 @@
       e.target.value = e.target.value.replace(/[^0-9]/g, '');
     });
 
-    // Open Modal and reset to Form step
+    // Open Modal, render event details, and reset to Form step
     triggers.forEach(button => {
       button.addEventListener("click", () => {
         const currentEvent = button.getAttribute("data-event");
         eventText.innerText = "Registering for: " + currentEvent;
+
+        // Render dynamic details for the clicked event
+        const data = eventDetailsData[currentEvent];
+        if (data) {
+          eventInfoBox.style.display = "block";
+          eventInfoBox.innerHTML = `
+            <h4>📋 Quick Details & Rules</h4>
+            <ul>
+              <li><span>Timing:</span> <strong>${data.time}</strong></li>
+              <li><span>Venue:</span> <strong>${data.venue}</strong></li>
+              <li><span>Format:</span> <strong>${data.type}</strong></li>
+              <li><span>Entry Fee:</span> <strong>${data.fee}</strong></li>
+              <li><span>Prize:</span> <strong>${data.prize}</strong></li>
+            </ul>
+            <ul class="rules-list">
+              ${data.rules.map(r => `<li>${r}</li>`).join('')}
+            </ul>
+          `;
+        } else {
+          eventInfoBox.style.display = "none";
+        }
         
-        // Reset Views
+        // Reset Views back to Step 1
         formContainer.style.display = "block";
-        successView.classList.remove("active");
         qrView.classList.remove("active");
+        successView.classList.remove("active");
         
         modal.classList.add("active");
       });
     });
 
-    // Helper to hide modal and reset views
+    // Helper to hide modal and reset form
     function hideModal() {
       modal.classList.remove("active");
       setTimeout(() => {
         formContainer.style.display = "block";
-        successView.classList.remove("active");
         qrView.classList.remove("active");
+        successView.classList.remove("active");
         regForm.reset();
       }, 400);
     }
@@ -765,17 +895,17 @@
       }
     });
 
-    // 1. Submit Registration Form -> Shows Success Screen
+    // STEP 1: Submit Form -> Shows QR Code Payment Screen
     regForm.addEventListener("submit", (e) => {
       e.preventDefault();
       formContainer.style.display = "none";
-      successView.classList.add("active");
+      qrView.classList.add("active");
     });
 
-    // 2. Click "Done" Button -> Hides Success Screen and Displays QR Image Screen
-    doneBtn.addEventListener("click", () => {
-      successView.classList.remove("active");
-      qrView.classList.add("active");
+    // STEP 2: Confirm Payment Button -> Shows Success Notification Screen
+    confirmPaymentBtn.addEventListener("click", () => {
+      qrView.classList.remove("active");
+      successView.classList.add("active");
     });
   </script>
 </body>
