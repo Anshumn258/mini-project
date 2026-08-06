@@ -744,7 +744,7 @@
   </footer>
 
   <script>
-    // --- API BASE URL ---
+    // --- API BASE URL (CHANGED) ---
     const API_BASE_URL = 'https://techno-utsav-backend.onrender.com/api';
 
     // Global variable to store active registration context
@@ -912,7 +912,7 @@
       }
     });
 
-    // --- STEP 1: Submit Form -> Connects to POST /api/register ---
+    // --- STEP 1: Submit Form -> Connects to POST /register or /api/register ---
     regForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -948,14 +948,14 @@
         }
       } catch (err) {
         console.error("API Error:", err);
-        alert("Unable to reach backend server. Make sure Node API is running on Port 5000.");
+        alert("Unable to reach backend server. If you just opened the site, Render free tier may take ~30s to wake up. Please wait a moment and try again.");
       } finally {
         submitRegBtn.disabled = false;
         submitRegBtn.innerText = "Proceed to Payment";
       }
     });
 
-    // --- STEP 2: Confirm Payment -> Connects to POST /api/confirm-payment ---
+    // --- STEP 2: Confirm Payment -> Connects to POST /confirm-payment ---
     confirmPaymentBtn.addEventListener("click", async () => {
       if (!currentRegistrationId) {
         alert("Session invalid or expired. Please re-register.");
