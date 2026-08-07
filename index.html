@@ -13,9 +13,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     :root {
       --bg-dark: #090d16;
@@ -512,16 +510,14 @@
       transform: scale(1.01);
     }
 
-    /* QR CODE VIEW STYLING (STEP 2) */
+    /* QR CODE VIEW STYLING */
     .qr-container {
       text-align: center;
       display: none;
       animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .qr-container.active {
-      display: block;
-    }
+    .qr-container.active { display: block; }
 
     .qr-image {
       width: 100%;
@@ -532,16 +528,14 @@
       display: block;
     }
 
-    /* SUCCESS VIEW STYLING (STEP 3) */
+    /* SUCCESS VIEW STYLING */
     .success-container {
       text-align: center;
       display: none;
       animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .success-container.active {
-      display: block;
-    }
+    .success-container.active { display: block; }
 
     .success-icon {
       width: 70px;
@@ -558,7 +552,6 @@
       box-shadow: 0 0 20px var(--accent-glow);
     }
 
-    /* Footer */
     footer {
       text-align: center;
       padding: 2.5rem;
@@ -607,38 +600,42 @@
 
     <div class="event-grid">
 
+      <!-- Event 1: Code Rush -->
       <div class="event-card">
         <div>
           <span class="event-tag">Coding</span>
           <h3>Code Rush</h3>
-          <p>A fast-paced competitive programming challenge testing algorithms and speed.</p>
+          <p>A fast-paced competitive algorithmic problem-solving challenge testing logic and computational speed.</p>
         </div>
         <button class="btn register-trigger" data-event="Code Rush">Register Now</button>
       </div>
 
+      <!-- Event 2: Frontend Designing -->
       <div class="event-card">
         <div>
-          <span class="event-tag">Web Design</span>
+          <span class="event-tag">Design</span>
           <h3>Frontend Designing</h3>
-          <p>Frontend design is the practice of creating the visual layout, styling, and interactive elements of a website or application that users directly see and experience.</p>
+          <p>Craft creative layouts, responsive designs, and vibrant user interfaces under tight deadlines.</p>
         </div>
         <button class="btn register-trigger" data-event="Frontend Designing">Register Now</button>
       </div>
 
+      <!-- Event 3: Reverse Coding -->
       <div class="event-card">
         <div>
-          <span class="event-tag">Web Dev</span>
+          <span class="event-tag">Logic</span>
           <h3>Reverse Coding</h3>
-          <p>Reverse Coding is figuring out the hidden rules or logic of a program by looking at its inputs and outputs, then writing the code to recreate it.</p>
+          <p>Analyze input/output test cases to decipher hidden logic and reconstruct exact code algorithms.</p>
         </div>
         <button class="btn register-trigger" data-event="Reverse Coding">Register Now</button>
       </div>
 
+      <!-- Event 4: ESports -->
       <div class="event-card">
         <div>
           <span class="event-tag">Gaming</span>
           <h3>ESports</h3>
-          <p>Battle against top teams in high-stakes Valorant and BGMI tournaments.</p>
+          <p>Battle head-to-head in high-stakes multiplayer LAN gaming arenas for high-tier rewards.</p>
         </div>
         <button class="btn register-trigger" data-event="ESports">Register Now</button>
       </div>
@@ -649,51 +646,43 @@
   <section class="section" id="about">
     <h2 class="section-title">About Techno Utsav</h2>
     <p class="section-subtitle">
-      Techno Utsav is the premier inter-collegiate technical fest hosted annually at Saket College, designed to inspire, entertain, and bring out the best technical minds.
+      Techno Utsav is the premier inter-collegiate technical fest hosted annually at Saket College.
     </p>
 
     <div class="about-grid">
       <div class="about-card">
         <h3>🎓 Saket College Pride</h3>
-        <p>Hosted at Saket College, Techno Utsav brings together students from all across the region to celebrate technology, innovation, and academic excellence in an energetic campus atmosphere.</p>
+        <p>Hosted at Saket College, Techno Utsav brings together students from across the region to celebrate innovation and academic excellence.</p>
       </div>
 
       <div class="about-card">
-        <h3>💻 Driven by IT & CS Students</h3>
-        <p>Organized passionately by the Information Technology and Computer Science departments, our student committee works tirelessly to craft challenging competitions and memorable experiences.</p>
+        <h3>💻 Driven by IT & CS</h3>
+        <p>Organized passionately by the IT and CS departments, our student committee crafts challenging technical and gaming competitions.</p>
       </div>
 
       <div class="about-card">
-        <h3>🚀 Fun Meets Technology</h3>
-        <p>It's not just about complex code and logic! We combine intense technical hackathons with exciting gaming arenas, fun side-quests, workshops, and entertainment to make tech accessible to everyone.</p>
+        <h3>🚀 Fun Meets Tech</h3>
+        <p>We combine intense coding competitions with energetic gaming, side quests, and workshops to make tech accessible to all.</p>
       </div>
     </div>
   </section>
 
+  <!-- Registration Modal -->
   <div class="modal-overlay" id="registrationModal">
     <div class="modal-content">
       <button class="close-btn" id="closeModal">&times;</button>
       
-      <!-- STEP 1: PARTICIPANT DETAILS FORM -->
+      <!-- STEP 1: FORM VIEW -->
       <div id="formContainer">
         <h2>Event Registration</h2>
         <p id="selectedEventText">Registering for: Event Name</p>
 
-        <div id="eventInfoBox" class="event-info-box">
-          <!-- Populated via JavaScript -->
-        </div>
+        <div id="eventInfoBox" class="event-info-box"></div>
 
         <form id="regForm">
           <div class="form-group">
             <label for="fullName">Full Name</label>
-            <input type="text"
-              id="fullName"
-              required
-              placeholder="John Doe"
-              maxlength="50"
-              pattern="^[A-Za-z ]+$"
-              title="Please enter only letters and spaces."
-              autocomplete="name">
+            <input type="text" id="fullName" required placeholder="John Doe" maxlength="50">
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
@@ -701,22 +690,13 @@
           </div>
           <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input 
-              type="tel" 
-              id="phone" 
-              required 
-              placeholder="9876543210" 
-              pattern="[0-9]{10}" 
-              maxlength="10" 
-              inputmode="numeric"
-              title="Please enter a valid 10-digit mobile number"
-            >
+            <input type="tel" id="phone" required placeholder="9876543210" pattern="[0-9]{10}" maxlength="10">
           </div>
           <button type="submit" id="submitRegBtn" class="btn" style="width: 100%;">Proceed to Payment</button>
         </form>
       </div>
 
-      <!-- STEP 2: SCAN & PAY QR CODE -->
+      <!-- STEP 2: QR PAYMENT VIEW -->
       <div id="qrView" class="qr-container">
         <h2>Scan & Pay</h2>
         <p style="color: var(--text-muted);">Scan the QR code using any UPI App to complete payment:</p>
@@ -726,12 +706,12 @@
         <button id="confirmPaymentBtn" class="btn" style="width: 100%; margin-top: 1rem;">I Have Made the Payment</button>
       </div>
 
-      <!-- STEP 3: SUCCESS NOTIFICATION VIEW -->
+      <!-- STEP 3: SUCCESS VIEW -->
       <div id="successView" class="success-container">
         <div class="success-icon">✓</div>
         <h2>Registration Successful!</h2>
         <p style="margin-top: 0.8rem; color: var(--text-muted);" id="successDetails">
-          Thank you for registering for Techno Utsav 2026. Your registration has been confirmed!
+          Your registration has been confirmed!
         </p>
         <button id="finalCloseBtn" class="btn" style="width: 100%; margin-top: 1.5rem;">Done</button>
       </div>
@@ -740,98 +720,81 @@
   </div>
 
   <footer>
-    <p>&copy; 2026 Techno Utsav | Saket College IT & CS Department. All Rights Reserved.</p>
+    <p>&copy; 2026 Techno Utsav | Saket College IT & CS Department.</p>
   </footer>
 
   <script>
-    // --- API BASE URL ---
+    // API BASE URL
     const API_BASE_URL = 'https://techno-utsav-backend.onrender.com/api';
 
-    // Global variable to store active registration context
     let currentRegistrationId = null;
     let selectedEventName = '';
 
-    // --- 1. COUNTDOWN TIMER ---
-    const hundredDaysInMs = 100 * 24 * 60 * 60 * 1000;
-    const targetDate = new Date().getTime() + hundredDaysInMs;
+    // COUNTDOWN TIMER
+    const targetDate = new Date().getTime() + (100 * 24 * 60 * 60 * 1000);
+    setInterval(() => {
+      const diff = targetDate - new Date().getTime();
+      if (diff <= 0) return;
 
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        clearInterval(timer);
-        document.getElementById("days").innerText = "00";
-        document.getElementById("hours").innerText = "00";
-        document.getElementById("mins").innerText = "00";
-        document.getElementById("secs").innerText = "00";
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-      document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-      document.getElementById("mins").innerText = mins < 10 ? "0" + mins : mins;
-      document.getElementById("secs").innerText = secs < 10 ? "0" + secs : secs;
+      document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+      document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+      document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+      document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
     }, 1000);
 
-    // --- 2. EVENT DATA STORE ---
+    // --- UPDATED EVENT DATA OBJECT (UPDATED KEYS & RULES) ---
     const eventDetailsData = {
       "Code Rush": {
-        time: "10:00 AM - 12:30 PM",
+        time: "10:00 AM - 12:00 PM",
         venue: "Lab 3 (3rd Floor)",
         type: "Solo Participation",
         fee: "₹50",
-        prize: "₹1,500 Cash + Trophy",
+        prize: "₹1,500 Cash + Certificate",
         rules: [
-          "Languages allowed: C++, Java, Python, C.",
-          "Duration: 90 minutes for 4 algorithmic problems.",
-          "Internet access or helper tools are strictly prohibited."
+          "Supported languages: C, C++, Java, and Python.",
+          "Duration: 90 minutes to solve 4 speed coding problems.",
+          "Strict anti-cheat policy: Internet access/AI usage leads to immediate disqualification."
         ]
       },
       "Frontend Designing": {
-        time: "01:00 PM - 03:00 PM",
+        time: "12:30 PM - 02:30 PM",
         venue: "Lab 1 (2nd Floor)",
         type: "Solo or Pair (Max 2)",
-        fee: "₹80 per team",
+        fee: "₹50",
         prize: "₹2,000 Cash + Certificate",
         rules: [
-          "Topic/Theme will be announced on the spot.",
-          "Allowed technologies: HTML5, CSS3, JS, Bootstrap/Tailwind.",
-          "No pre-made templates or frameworks allowed."
+          "Design topic/theme will be provided on the spot.",
+          "Allowed technologies: HTML5, CSS3, JavaScript, and Bootstrap/Tailwind.",
+          "Pre-designed website templates are strictly not allowed."
         ]
       },
       "Reverse Coding": {
-        time: "11:30 AM - 01:30 PM",
+        time: "01:00 PM - 03:00 PM",
         venue: "Lab 2 (2nd Floor)",
         type: "Solo Participation",
-        fee: "₹50",
-        prize: "₹1,500 Cash + Medal",
+        fee: "₹100",
+        prize: "₹2,500 Cash + Trophy",
         rules: [
-          "Analyze executables/outputs to guess the algorithm.",
-          "Recreate the exact code in the language of your choice.",
-          "Scoring depends on accuracy and completion speed."
+          "Executable files with test input/output examples will be provided.",
+          "Participants must decode the logic and write code producing matching outputs.",
+          "Evaluation based on correctness, test case coverage, and completion speed."
         ]
       },
       "ESports": {
         time: "02:00 PM Onwards",
         venue: "Auditorium / Gaming Arena",
-        type: "Squad (Valorant / BGMI)",
-        fee: "₹200 per Squad",
+        type: "Squad / Team Match",
+        fee: "₹150",
         prize: "₹4,000 Prize Pool + Trophies",
         rules: [
-          "Players must bring their own smartphones/peripherals.",
-          "Emulators are strictly prohibited for mobile games.",
-          "Unfair means or hacking leads to immediate disqualify."
+          "Players must use their own verified personal game accounts.",
+          "Emulators and third-party assistance software are strictly forbidden.",
+          "Unfair play or toxic behavior will result in instant team disqualification."
         ]
       }
     };
 
-    // --- 3. MODAL & SCREEN SWITCH LOGIC ---
+    // DOM Elements
     const modal = document.getElementById("registrationModal");
     const closeModal = document.getElementById("closeModal");
     const triggers = document.querySelectorAll(".register-trigger");
@@ -847,26 +810,23 @@
     const qrView = document.getElementById("qrView");
     const successView = document.getElementById("successView");
     const successDetails = document.getElementById("successDetails");
-    
     const finalCloseBtn = document.getElementById("finalCloseBtn");
 
-    // Sanitize non-numeric phone input
     phoneInput.addEventListener("input", (e) => {
       e.target.value = e.target.value.replace(/[^0-9]/g, '');
     });
 
-    // Open Modal, render event details, and reset to Form step
+    // Handle Open Modal
     triggers.forEach(button => {
       button.addEventListener("click", () => {
         selectedEventName = button.getAttribute("data-event");
         eventText.innerText = "Registering for: " + selectedEventName;
 
-        // Render dynamic details for the clicked event
         const data = eventDetailsData[selectedEventName];
         if (data) {
           eventInfoBox.style.display = "block";
           eventInfoBox.innerHTML = `
-            <h4>📋 Quick Details & Rules</h4>
+            <h4>📋 Details & Rules</h4>
             <ul>
               <li><span>Timing:</span> <strong>${data.time}</strong></li>
               <li><span>Venue:</span> <strong>${data.venue}</strong></li>
@@ -882,16 +842,13 @@
           eventInfoBox.style.display = "none";
         }
         
-        // Reset Views back to Step 1
         formContainer.style.display = "block";
         qrView.classList.remove("active");
         successView.classList.remove("active");
-        
         modal.classList.add("active");
       });
     });
 
-    // Helper to hide modal and reset form
     function hideModal() {
       modal.classList.remove("active");
       setTimeout(() => {
@@ -905,14 +862,9 @@
 
     closeModal.addEventListener("click", hideModal);
     finalCloseBtn.addEventListener("click", hideModal);
+    window.addEventListener("click", (e) => { if (e.target === modal) hideModal(); });
 
-    window.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        hideModal();
-      }
-    });
-
-    // --- STEP 1: Submit Form -> Connects to POST /api/register ---
+    // Submit Registration
     regForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -926,15 +878,8 @@
       try {
         const response = await fetch(`${API_BASE_URL}/register`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            fullName,
-            email,
-            phone,
-            eventName: selectedEventName
-          })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fullName, email, phone, eventName: selectedEventName })
         });
 
         const result = await response.json();
@@ -944,33 +889,28 @@
           formContainer.style.display = "none";
           qrView.classList.add("active");
         } else {
-          alert(result.message || "Failed to initiate registration.");
+          alert(result.message || "Registration failed.");
         }
       } catch (err) {
         console.error("API Error:", err);
-        alert("Unable to reach backend server. If you just opened the site, Render free tier may take ~30s to wake up. Please wait a moment and try again.");
+        alert("Server connection failed. If using Render free tier, server wake up may take 30s. Try again shortly.");
       } finally {
         submitRegBtn.disabled = false;
         submitRegBtn.innerText = "Proceed to Payment";
       }
     });
 
-    // --- STEP 2: Confirm Payment -> Connects to POST /api/confirm-payment ---
+    // Confirm Payment
     confirmPaymentBtn.addEventListener("click", async () => {
-      if (!currentRegistrationId) {
-        alert("Session invalid or expired. Please re-register.");
-        return;
-      }
+      if (!currentRegistrationId) return alert("Session expired.");
 
       confirmPaymentBtn.disabled = true;
-      confirmPaymentBtn.innerText = "Verifying Payment...";
+      confirmPaymentBtn.innerText = "Verifying...";
 
       try {
         const response = await fetch(`${API_BASE_URL}/confirm-payment`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             registrationId: currentRegistrationId,
             transactionRef: `TXN_LOCAL_${Date.now()}`
@@ -988,7 +928,7 @@
         }
       } catch (err) {
         console.error("API Error:", err);
-        alert("Server error confirming payment. Please try again.");
+        alert("Server error confirming payment.");
       } finally {
         confirmPaymentBtn.disabled = false;
         confirmPaymentBtn.innerText = "I Have Made the Payment";
